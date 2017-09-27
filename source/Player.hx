@@ -4,7 +4,7 @@ import flixel.FlxG;
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
-import haxe.Constraints.FlatEnum;
+import flixel.text.FlxText;
 
 /**
  * ...
@@ -12,7 +12,10 @@ import haxe.Constraints.FlatEnum;
  */
 class Player extends FlxSprite 
 {
-	//public var disparo(get, null):DisparoNave;
+	public var disparo(get, null):DisparoNave;
+	public var shootCounter:Float = 0;
+	public var puedeDisparar:Bool = true;
+	
 	
 	public function new(?X:Float=0, ?Y:Float=0, ?SimpleGraphic:FlxGraphicAsset) 
 	{
@@ -34,6 +37,10 @@ class Player extends FlxSprite
 	{
 		super.update(elapsed);
 		
+		shootCounter += elapsed;
+		
+		DestroyAfuera();
+		trace(shootCounter);
 		Paredes();
 		Disparo();
 		velocity.set(Reg.velocidadCamara, 0);
@@ -65,21 +72,26 @@ class Player extends FlxSprite
 	}	
 	function Disparo()
 	{
-		if (FlxG.keys.justPressed.SPACE) 
+		if (FlxG.keys.justPressed.SPACE && shootCounter>= 0.7) 
 		{
+			puedeDisparar = false;
 			var disparo:DisparoNave = new DisparoNave();
 			
 			disparo.x = this.x + (this.width+ width/3);
 			disparo.y = this.y;
 			FlxG.state.add(disparo);
+			shootCounter = 0;
 			
 			/*disparo.reset(x - 2 + width / 2, y + height / 2);
 			disparo.velocity.x = (DisparoNave.velocidadDisparo);*/
 		}
 	}
-	
-	/*function get_disparo():DisparoNave 
+		function DestroyAfuera() 
+	{
+		
+	}
+	function get_disparo():DisparoNave 
 	{
 		return disparo;
-	}*/
+	}
 }

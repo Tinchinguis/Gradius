@@ -25,4 +25,5 @@ class DisparoNave extends FlxSprite
 	{
 		super.update(elapsed);
 	}
+	
 }

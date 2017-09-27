@@ -3,40 +3,45 @@ package;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
+import flixel.text.FlxText;
 
 class PlayState extends FlxState
 {
 	private var player:Player;
 	public var guide:FlxSprite;
-	public var contadorPowerups:int;
+	public var contadorPowerups:Int = 0;
+	public var vidas:FlxText;
 
 	
 	override public function create():Void
 	{
 		super.create();
 		
-		player = new Player (200, 200);
+		player = new Player (20, Reg.altoPantalla/2);
 		
 		//Reg.guideRef = guide;
-		//guide = new Guia(FlxG.width / 2, FlxG.height / 2);
+		guide = new Guia(FlxG.width / 2, FlxG.height / 2);
 		guide.velocity.x = Reg.velocidadCamara;
 		FlxG.camera.follow(guide);		
 		//Reg.xGuia = guide.x;		//player.Paredes(guide.x);
+		vidas = new FlxText(20, Reg.altoPantalla - 20, 0, "Vidas: " + Reg.vidas, 16, true);
+		vidas.scrollFactor.set(0, 0);
 		
 		add(guide);
 		add(new FlxSprite(0, 0, AssetPaths.starswall__jpg));
+		add(vidas);
 		add(player);
 	}
 
 	override public function update(elapsed:Float):Void
 	{
-		powerups();
+		//powerups();
 		camara();
 		paredesNave();
 		super.update(elapsed);
 	}
 	
-	function powerups() 
+	/*function powerups() 
 	{
 		switch (contadorPowerups) 
 		{
@@ -52,36 +57,32 @@ class PlayState extends FlxState
 			default:
 				
 		}
-	}
+	}*/
 	
 	function paredesNave() 
 	{
-		/*if (player.x < FlxG.width-FlxG.width) 
-		{
-			player.x = 0;
-		}
-		/*if (player.x > guide.width) 
-		{
-			player.x = guide.width + guide.width/2;
-		}*/
-		if (player.y<0)
-		{
-			player.y = 0;
-		}
-		if (player.y>(FlxG.height-player.height)) 
-		{
-			player.y = FlxG.height - player.height;
-		}
+		var scroll = FlxG.camera.scroll;
 		
-		/*if (player.x < Reg.guideRef.width - FlxG.width / 2)
-		player.x = Reg.guideRef.width- FlxG.width / 2;
-		else if (player.x > Reg.guideRef.width + FlxG.width / 2 - Reg.guideRef.width)
-		player.x = Reg.guideRef.width + FlxG.width / 2 - Reg.guideRef.width;*/
+		if (player.x > scroll.x + Reg.anchoPantalla - player.width) 
+		{
+			player.x = scroll.x + Reg.anchoPantalla - player.width;
+		}
+		if (player.x < scroll.x) 
+		{
+			player.x = scroll.x;
+		}
+		if (player.y > scroll.y + Reg.altoPantalla - player.height) 
+		{
+			player.y = scroll.y + Reg.altoPantalla - player.height;
+		}
+		if (player.y < scroll.y) 
+		{
+			player.y = scroll.y;
+		}
 	}
 	
-	function camara() 
-	{
-		FlxG.camera.follow(guide);
-
+	function camara()
+	{	
+		//FlxG.camera.follow(guide);
 	}
 }
