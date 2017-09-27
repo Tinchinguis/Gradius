@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
 import flixel.system.FlxAssets.FlxGraphicAsset;
+import haxe.Constraints.FlatEnum;
 
 /**
  * ...
@@ -33,7 +34,7 @@ class Player extends FlxSprite
 	{
 		super.update(elapsed);
 		
-		paredes();
+		Paredes();
 		Disparo();
 		velocity.set(Reg.velocidadCamara, 0);
 		
@@ -47,14 +48,21 @@ class Player extends FlxSprite
 			velocity.y -= 180;
 	}
 	
-	function paredes()
+	public function Paredes()	
 	{
-		if (x < 0)
-			x = 0;
-		if (x>(FlxG.width - width)) 
-			x = FlxG.width - width;
-	}
-	
+		/*if (Reg.xGuia-64 < this.width)
+			x = Reg.xGuia-64;
+		if (x>((Reg.xGuia+64) - this.width)) 
+			x = Reg.xGuia+64 - this.width;*/
+		if (y<0)
+		{
+			y = 0;
+		}
+		if (y>(FlxG.height-this.height)) 
+		{
+			y = FlxG.height - this.height;
+		}
+	}	
 	function Disparo()
 	{
 		if (FlxG.keys.justPressed.SPACE) 
