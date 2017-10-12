@@ -515,7 +515,7 @@ class ApplicationMain {
 		
 		config = {
 			
-			build: "201",
+			build: "285",
 			company: "Tian",
 			file: "Gradius",
 			fps: 60,

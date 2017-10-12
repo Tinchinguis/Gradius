@@ -17,13 +17,12 @@ class DisparoNave extends FlxSprite
 		
 		super(X, Y, SimpleGraphic);
 		loadGraphic(AssetPaths.disparo__png);
-		scale.set(0.75 , 0.75);
+		scale.set(0.5 , 0.5);
 		velocity.x = 500;
 		/*makeGraphic(10,10,FlxColor.WHITE);*/
 	}
 	override public function update(elapsed:Float):Void
 	{
 		super.update(elapsed);
-	}
-	
+	}	
 }

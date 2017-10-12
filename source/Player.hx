@@ -77,7 +77,7 @@ class Player extends FlxSprite
 			puedeDisparar = false;
 			var disparo:DisparoNave = new DisparoNave();
 			
-			disparo.x = this.x + (this.width+ width/3);
+			disparo.x = this.x + this.width - (width/3);
 			disparo.y = this.y;
 			FlxG.state.add(disparo);
 			shootCounter = 0;
